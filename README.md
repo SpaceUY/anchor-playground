@@ -60,15 +60,15 @@ anchor build
 
 - To deploy:
 
-```bash
+````bash
 anchor deploy
 ```
 
-After deployment, copy the Program ID and replace it in the declare_id! macro and the Anchor.toml file.
+**After deployment, copy the Program ID and replace it in the program declare_id! macro and the Anchor.toml file.**
 
 ## How to Run Test and check logs
 
-# Run Validator, Anchor Test Skipping Local Validator and Check Logs
+### Run Validator, Anchor Test Skipping Local Validator and Check Logs
 
 For a smooth testing experience, we recommend using three separate terminal windows:
 
@@ -76,7 +76,7 @@ Local Node Terminal: Start your local Solana node in one terminal. This will kee
 
 ```bash
 solana-test-validator
-```
+````
 
 Log Monitoring Terminal: In a second terminal, monitor the logs for program outputs. This will help you track the progress and debug any issues.
 
@@ -90,7 +90,7 @@ Test Execution Terminal: In the third terminal, execute your Anchor tests. This 
 anchor test --skip-local-validator
 ```
 
-# Running Tests Only
+### Running Tests Only
 
 If your goal is simply to run the tests without skipping the local validator, use the following command:
 
