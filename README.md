@@ -60,7 +60,7 @@ anchor build
 
 - To deploy:
 
-````bash
+```bash
 anchor deploy
 ```
 
