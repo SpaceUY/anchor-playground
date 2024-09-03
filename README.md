@@ -53,15 +53,29 @@ yarn install
 ```
 
 - To build:
+  All:
 
 ```bash
 anchor build
 ```
 
-- To deploy:
+Olny only by program name:
+
+```bash
+anchor build -p <program_name>
+```
+
+- To deploy (run solana-test-validator before):
+  All:
 
 ```bash
 anchor deploy
+```
+
+Olny only by program name:
+
+```bash
+anchor deploy -p <program_name>
 ```
 
 **After deployment, copy the Program ID and replace it in the program declare_id! macro and the Anchor.toml file.**
@@ -76,7 +90,7 @@ Local Node Terminal: Start your local Solana node in one terminal. This will kee
 
 ```bash
 solana-test-validator
-````
+```
 
 Log Monitoring Terminal: In a second terminal, monitor the logs for program outputs. This will help you track the progress and debug any issues.
 
