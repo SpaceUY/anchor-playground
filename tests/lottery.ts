@@ -5,7 +5,12 @@ import { Program } from "@coral-xyz/anchor";
 import { Lottery } from "../target/types/lottery";
 const { SystemProgram, Keypair } = anchor.web3;
 import { PublicKey } from "@solana/web3.js";
-import { LAMPORTS_PER_SOL, printBalances } from "./utils/index";
+import {
+  getAccountOwner,
+  LAMPORTS_PER_SOL,
+  printBalances,
+  printProgramAccounts,
+} from "./utils/index";
 
 describe("Tests for lottery", async () => {
   const provider = anchor.AnchorProvider.local();
@@ -22,7 +27,7 @@ describe("Tests for lottery", async () => {
   // Get program IDL for rock-paper-scissor
   const program = anchor.workspace.Lottery as Program<Lottery>;
 
-  const accountsToPrint: Record<string, PublicKey> = {
+  let accountsToPrint: Record<string, PublicKey> = {
     Player1: player1.publicKey,
     Player2: player2.publicKey,
     SkintPlayer3: skintPlayer3.publicKey,
@@ -108,6 +113,14 @@ describe("Tests for lottery", async () => {
     // Get lottery index
     let idx: number = (await program.account.lottery.fetch(lottery.publicKey))
       .count;
+    // Consutruct buffer containing latest index
+    const buf1 = Buffer.alloc(4);
+    buf1.writeUIntBE(idx, 0, 4);
+
+    const [ticket, bump] = await anchor.web3.PublicKey.findProgramAddress(
+      [buf1, lottery.publicKey.toBytes()],
+      program.programId
+    );
 
     const accounts = {
       lottery: lottery.publicKey,
@@ -121,6 +134,11 @@ describe("Tests for lottery", async () => {
       .signers([player1])
       .rpc();
 
+    // Assert submitters key matches the one provided
+    let submissionState = await program.account.ticket.fetch(ticket);
+    expect(submissionState.submitter.toString()).to.equal(
+      player1.publicKey.toString()
+    );
     // Get ending balances for player and lottery
     let endBalanacePlayer: number = await provider.connection.getBalance(
       player1.publicKey
@@ -138,7 +156,9 @@ describe("Tests for lottery", async () => {
     // Assert lottery incremented to 1
     let lotteryState = await program.account.lottery.fetch(lottery.publicKey);
     expect(lotteryState.count).to.equal(idx + 1);
-
+    await getAccountOwner(provider, player1.publicKey, program.programId);
+    await getAccountOwner(provider, ticket, program.programId);
+    accountsToPrint["Ticket 1"] = ticket;
     await printBalances(provider, accountsToPrint, "Payer 1 buy a ticket");
   });
 
@@ -200,6 +220,11 @@ describe("Tests for lottery", async () => {
     expect(submissionState.submitter.toString()).to.equal(
       player2.publicKey.toString()
     );
+
+    await getAccountOwner(provider, player2.publicKey, program.programId);
+    await getAccountOwner(provider, ticket, program.programId);
+    accountsToPrint["Ticket 2"] = ticket;
+    await printBalances(provider, accountsToPrint, "Payer 2 buy a ticket");
   });
 
   it("Can't submit as player3 with no money", async () => {
