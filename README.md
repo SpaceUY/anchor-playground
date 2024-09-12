@@ -111,3 +111,19 @@ If your goal is simply to run the tests without skipping the local validator, us
 ```bash
    anchor test
 ```
+
+### Updrade Program
+
+anchor build -p <PROGRAM_NAME>
+anchor upgrade target/deploy/<PROGRAM_NAME>.so --provider.cluster <CLUSTER> --program-id <PROGRAM_ID>
+
+Where
+PROGRAM_NAME is the file or name of your generated .so file
+ClUSTER is which environment you'd like to deploy to (e.g "Devnet")
+PROGRAM_ID is the existing program id you'd like to upgrade to
+
+<!--
+example:
+anchor build -p hello_world
+anchor upgrade target/deploy/hello_world.so --provider.cluster localnet --program-id 9Qt4N8UhuTtgWzkf8hKqEYjbzdpD5B7eb7vyhccArFG1
+ -->
