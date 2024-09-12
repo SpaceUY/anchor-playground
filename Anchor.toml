@@ -6,8 +6,18 @@ skip-lint = false
 seeds = false
 
 [programs.localnet]
-hello_world = "4RBuBKF3rJy45jbMMiUs8BfkfNeDJBf48TNrRgxEr8cU"
-lottery = "7mdgH4a8NfNdGSMqoh6JskbMpDnWFWs3h7HvS5jSHLFQ"
+hello_world = "9Qt4N8UhuTtgWzkf8hKqEYjbzdpD5B7eb7vyhccArFG1"
+lottery = "HLkognudb187tQonWj95oR3hFTrxHaR53AUYHLAfwec"
+fee_payer = "5HvJqqCJRTjLya5eEd8wSbZh2zhBUnNgySdViGkZoAwZ"
+
+[programs.testnet]
+fee_payer = "5HvJqqCJRTjLya5eEd8wSbZh2zhBUnNgySdViGkZoAwZ"
+
+[programs.devnet]
+fee_payer = "5HvJqqCJRTjLya5eEd8wSbZh2zhBUnNgySdViGkZoAwZ"
+
+[programs.mainnet]
+fee_payer = "5HvJqqCJRTjLya5eEd8wSbZh2zhBUnNgySdViGkZoAwZ"
 
 [registry]
 url = "https://api.apr.dev"

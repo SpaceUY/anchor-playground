@@ -121,10 +121,16 @@ describe("Tests for lottery", async () => {
       [buf1, lottery.publicKey.toBytes()],
       program.programId
     );
-
+    accountsToPrint["Ticket 1"] = ticket;
+    await printBalances(
+      provider,
+      accountsToPrint,
+      "BEFORE Payer 1 buy a ticket"
+    );
     const accounts = {
       lottery: lottery.publicKey,
       player: player1.publicKey,
+      ticket: ticket,
       systemProgram: SystemProgram.programId,
     };
     // Get lottery ticket

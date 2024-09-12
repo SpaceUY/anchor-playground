@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 
 // This declares the program ID, which is the unique identifier for your Solana program.
-declare_id!("7mdgH4a8NfNdGSMqoh6JskbMpDnWFWs3h7HvS5jSHLFQ");
+declare_id!("HLkognudb187tQonWj95oR3hFTrxHaR53AUYHLAfwec");
 
 #[program]
 mod lottery {

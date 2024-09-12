@@ -101,7 +101,7 @@ solana logs | grep "Program log:"
 Test Execution Terminal: In the third terminal, execute your Anchor tests. This will run your tests while using the local node and show any relevant output.
 
 ```bash
-anchor test --skip-local-validator
+anchor test -p fee_payer --skip-local-validator --skip-deploy
 ```
 
 ### Running Tests Only
